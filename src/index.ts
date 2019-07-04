@@ -19,7 +19,9 @@ export class PostBuilder {
 
 	constructor(public config: PostConfig) {
 		if(config.minify) {
-			this.pluginList.push(cssnano());
+			this.pluginList.push(cssnano({
+				preset: 'default'
+			}));
 		}
 	}
 
