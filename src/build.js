@@ -1,5 +1,9 @@
-require('requirex');
+var path = require('path');
+var url = require('requirex').URL;
 
-System.build(require('path').resolve(process.argv[2])).then(function(code) {
+var resolved = url.fromLocal(path.resolve(process.argv[2]));
+var parent = url.resolve(resolved, '.');
+
+System.build(resolved, parent).then(function(code) {
 	process.stdout.write(code);
 });

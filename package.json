@@ -2,7 +2,8 @@
   "name": "requirex-postcss-bundle",
   "version": "0.0.1",
   "description": "PostCSS bundled for requirex",
-  "main": "dist/index.min.js",
+  "main": "dist/index.js",
+  "browser": "dist/index.min.js",
   "scripts": {
     "tsc": "tsc",
     "prepublish": "node src/build.js src/index.ts > build/index.js && tsc -p src && tsc --allowJs -m commonjs --outDir dist build/index.js && uglifyjs -c -m < dist/index.js > dist/index.min.js"
