@@ -9,9 +9,9 @@ import * as atUrl from 'postcss-url';
 import('postcss-url/src/type/custom');
 
 export interface PostConfig {
-	importResolve: (key: string, dir: string) => string | Promise<string>;
+	importResolve: (importKey: string, baseKey: string) => string | Promise<string>;
 	importLoad: (key: string) => string | Promise<string>;
-	urlResolve: (key: string, isLocal: boolean) => string;
+	urlResolve: (importKey: string, baseKey: string) => string;
 	minify?: boolean;
 }
 
@@ -25,10 +25,10 @@ export class PostBuilder {
 		}
 	}
 
-	build(key: string, baseKey: string) {
-		return postcss(this.pluginList).process('@import "' + key + '"', {
+	build(code: string, key: string) {
+		return postcss(this.pluginList).process(code, {
 			parser: safeParser,
-			from: baseKey,
+			from: key,
 			map: {
 				inline: false,
 				sourcesContent: false
@@ -42,10 +42,9 @@ export class PostBuilder {
 			load: this.config.importLoad
 		}),
 		atUrl({
-			url: ((asset) => {
-				const isLocal = !!asset.pathname;
-				return this.config.urlResolve(isLocal ? asset.absolutePath! : asset.url, isLocal);
-			}) as atUrl.CustomTransformFunction
+			url: ((asset: any, dir: any, opts: any, decl: any) =>
+				this.config.urlResolve(asset.url, decl.source.input.file)
+			) as atUrl.CustomTransformFunction
 		}),
 		autoprefixer
 	];
