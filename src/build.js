@@ -6,4 +6,6 @@ var parent = url.resolve(resolved, '.');
 
 System.build(resolved, parent).then(function(code) {
 	process.stdout.write(code);
+}).catch(function(err) {
+	console.trace(err);
 });
