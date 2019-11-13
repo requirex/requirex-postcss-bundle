@@ -1,9 +1,9 @@
-import * as postcss from 'postcss';
-import * as safeParser from 'postcss-safe-parser';
-import * as autoprefixer from 'autoprefixer';
-import * as cssnano from 'cssnano';
-import * as atImport from 'postcss-import';
-import * as atUrl from 'postcss-url';
+import postcss from 'postcss';
+import safeParser from 'postcss-safe-parser';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import atImport from 'postcss-import';
+import atUrl from 'postcss-url';
 
 // Ensure custom URL resolution support gets bundled.
 import('postcss-url/src/type/custom');
