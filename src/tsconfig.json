@@ -11,7 +11,10 @@
 		"noImplicitThis": true,
 		"outDir": "../dist",
 		"removeComments": false,
+		"sourceMap": true,
+		"strictBindCallApply": true,
 		"strictFunctionTypes": true,
+		"strictPropertyInitialization": true,
 		"strictNullChecks": true,
 		"target": "es5"
 	},

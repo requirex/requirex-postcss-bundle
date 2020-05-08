@@ -9,16 +9,18 @@ import atUrl from 'postcss-url';
 import('postcss-url/src/type/custom');
 
 export interface PostConfig {
+
 	importResolve: (importKey: string, baseKey: string) => string | Promise<string>;
 	importLoad: (key: string) => string | Promise<string>;
 	urlResolve: (importKey: string, baseKey: string) => string;
 	minify?: boolean;
+
 }
 
 export class PostBuilder {
 
 	constructor(public config: PostConfig) {
-		if(config.minify) {
+		if (config.minify) {
 			this.pluginList.push(cssnano({
 				preset: 'default'
 			}));
@@ -30,10 +32,11 @@ export class PostBuilder {
 			parser: safeParser,
 			from: key,
 			map: {
+				annotation: false,
 				inline: false,
-				sourcesContent: false
+				sourcesContent: true
 			}
-		}).then((result) => result.css);
+		}).then(({ css, map }) => ({ css, map: map as any }));
 	}
 
 	private pluginList: postcss.AcceptedPlugin[] = [
